@@ -1,0 +1,81 @@
+﻿@model Carrito_A.Models.Cliente
+
+@{
+    ViewData["Title"] = @AliasGUI.Details;
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <div class="row justify-content-between">
+        <div class="col-lg-6 col-md-4 col-xs-12">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Dni)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Dni)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Nombre)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Apellido)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Apellido)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.UserName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.UserName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.FechaAlta)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.FechaAlta)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Direccion)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Direccion.DireccionCompleta)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Telefono)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Telefono.TelefonoCompleto)
+                </dd>
+            </dl>
+            </div>
+        <div class="col-lg-6 col-md-4 col-xs-12">
+            <td>
+                @{
+                    var foto = "~/img/fotos/clientes/" + Model.Foto;
+                }
+                <img src="@foto" class="img-fluid round mt-1" alt="Foto del cliente." width="250px" height="200px" asp-append-version="true">
+                <a class="btn btn-secondary btn-sm text-white mb-2" asp-controller= "Clientes" asp-action="SubirFoto" asp-route-id="@Model.Id">Actualizar Foto</a>
+            </td>
+        </div>
+    </div>
+            <div>
+                @if (User.IsInRole("Empleado") || User.IsInRole("Administrador"))
+                {
+                    <a class="btn btn-secondary btn-sm text-white mb-2" asp-action="EditarDatosCliente" asp-route-clienteId="@Model.Id">@AliasGUI.Edit</a>
+                }
+                <a class="btn btn-info btn-sm text-white mb-2" asp-action="Index">@AliasGUI.BackToList</a>
+            </div>

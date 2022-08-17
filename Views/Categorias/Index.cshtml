@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Carrito_A.Models.Categoria>
+@inject Microsoft.AspNetCore.Identity.UserManager<Carrito_A.Models.Persona> userManager
+@inject SignInManager<Persona> singInManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Categorias</h1>
+@if (singInManager.IsSignedIn(User) && (User.IsInRole("Empleado") || User.IsInRole("Administrador")))
+{
+    <p>
+        <a asp-action="Create">@AliasGUI.Create</a>
+    </p>
+}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    <a class="btn btn-success btn-sm text-white mb-2" asp-action="MostrarProductosPorCategoria" asp-controller="Categorias" asp-route-categoriaId="@item.Id"> Ver Productos</a>
+                </td>
+                <td>
+                    <a class="btn btn-info btn-sm text-white mb-2" asp-action="Details" asp-route-id="@item.Id">@AliasGUI.Details</a>
+                    @if (singInManager.IsSignedIn(User) && (User.IsInRole("Empleado") || User.IsInRole("Administrador")))
+                    {<a class="btn btn-secondary btn-sm text-white mb-2" asp-action="Edit" asp-route-id="@item.Id">@AliasGUI.Edit</a>
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Carrito_A.Models.CarritoItem>
+
+<h2>Compra Finalizada</h2>
+<div class="alert-success m-2 text-center">
+    <h4>¡Muchas gracias por su compra!</h4>
+</div>
+<div>
+    <p>Código de Compra: @ViewBag.Compra.CodCompra</p>
+    <p>Sucursal: @ViewBag.Sucursal.Nombre, @ViewBag.Sucursal.Direccion</p>
+</div>
+<table class="table table-striped">
+    <tr>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>SubTotal</th>
+    </tr>
+    @foreach (var item in ViewBag.Carrito.CarritoItems)
+    {
+        <tr>
+            <td>@item.Producto.Nombre</td>
+            <td>@item.ValorUnitario</td>
+            <td>@item.Cantidad</td>
+            <td>$@item.SubTotal</td>
+        </tr>
+    }
+</table>
+
+    <p class="alert-primary">Total Compra: $@ViewBag.Compra.Total</p>

@@ -1,0 +1,11 @@
+﻿@model Carrito_A.Models.Carrito;
+
+<span>No hay stock suficiente en la sucursal elegida</span>
+<p>Debe elegir otra sucursal para finalizar su compra</p>
+
+<div>
+    @foreach (Sucursal s in ViewBag.ListaSucursalesStock)
+    {
+        <a class="btn btn-info" asp-action="FinalizarCompra" asp-controller="Compras" asp-route-carritoId=@Model.Id asp-route-sucursalId=@s.Id><span>@s.Nombre</span>, @s.Direccion</a>
+    }
+</div>

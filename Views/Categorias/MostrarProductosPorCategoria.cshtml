@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Carrito_A.Models.Producto>
+@inject Microsoft.AspNetCore.Identity.UserManager<Carrito_A.Models.Persona> userManager
+@inject SignInManager<Persona> singInManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Productos</h1>
+
+@if (Model != null && Model.Count() > 0)
+{
+    <h2>@Model.FirstOrDefault().Categoria.Nombre</h2>
+    <table class="table table-striped">
+        <thead class="thead-dark  text-center">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PrecioVigente)
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class=" text-center">
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrecioVigente)
+                </td>
+                <td>
+                    @{
+                        var foto = "~/img/fotos/productos/" + item.Foto;
+                    }
+                    <img src="@foto" class="img-fluid img-thumbnail" alt="Foto del producto." width="150px" height="100px" asp-append-version="true">
+                </td>
+                <td>
+                    @if (item.Activo == false)
+                    {
+                        <p class="alert-danger text-center">PRODUCTO PAUSADO</p>
+                    }
+                    else
+                    {
+                        if (!User.IsInRole("Empleado") && !User.IsInRole("Administrador"))
+                        {
+                            <a class="btn btn-success btn-sm text-white mb-2" asp-action="CarritoMgr" asp-controller="Carritos" asp-route-productoId="@item.Id" asp-route-clienteId=@userManager.GetUserId(User)> Agregar a mi Carrito</a>
+                        }
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+            }
+            else
+            {
+                <p>No hay productos para esta categoria</p>
+            }

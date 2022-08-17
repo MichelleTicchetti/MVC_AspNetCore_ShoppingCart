@@ -1,0 +1,68 @@
+﻿@model Carrito_A.Models.Producto
+@inject SignInManager<Persona> singInManager
+@inject Microsoft.AspNetCore.Identity.UserManager<Carrito_A.Models.Persona> userManager
+
+
+@{
+    ViewData["Title"] = @AliasGUI.Details;
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Producto</h4>
+    <hr />
+    <div class="row justify-content-between">
+        <div class="col-lg-6 col-md-4 col-xs-12">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Nombre)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Descripcion)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.PrecioVigente)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.PrecioVigente)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Activo)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Activo)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Categoria)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Categoria.Descripcion)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-lg-6 col-md-4 col-xs-12">
+            @{
+                var foto = "~/img/fotos/productos/" + Model.Foto;
+            }
+            <img src="@foto" class="img-fluid round mt-1" alt="Foto del producto." width="250px" height="200px" asp-append-version="true">
+            @if (singInManager.IsSignedIn(User) && (User.IsInRole("Empleado") || User.IsInRole("Administrador")))
+            {
+                <a class="btn btn-secondary btn-sm text-white mb-2" asp-action="SubirFoto" asp-route-id="@Model.Id">Actualizar Foto</a> 
+            }
+            </div>
+    </div>
+</div>
+<div>
+    @if (singInManager.IsSignedIn(User) && (User.IsInRole("Empleado") || User.IsInRole("Administrador")))
+    {
+        <a class="btn btn-secondary btn-sm text-white mb-2" asp-action="Edit" asp-route-id="@Model.Id">@AliasGUI.Edit</a>
+    }
+    <a class="btn btn-info btn-sm text-white mb-2" asp-action="Index">@AliasGUI.BackToList</a>
+</div>

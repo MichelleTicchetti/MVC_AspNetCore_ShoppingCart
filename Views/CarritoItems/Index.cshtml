@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Carrito_A.Models.CarritoItem>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Items en el carrito</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Carrito)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Producto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubTotal)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Carrito.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producto.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubTotal)
+            </td>
+            <td>
+                <a class="btn btn-secondary btn-sm text-white mb-2" asp-action="Edit" asp-route-id="@item.Id">@AliasGUI.Edit</a>
+                <a class="btn btn-info btn-sm text-white mb-2" asp-action="Details" asp-route-id="@item.Id">@AliasGUI.Details</a>
+                <a class="btn btn-danger btn-sm text-white mb-2" asp-action="Delete" asp-route-id="@item.Id">@AliasGUI.Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

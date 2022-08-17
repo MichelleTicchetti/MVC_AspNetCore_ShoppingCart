@@ -1,0 +1,29 @@
+﻿
+@model IEnumerable<Carrito_A.Models.Compra>
+               
+<table class="table table-striped">
+    <thead class="thead-dark  text-center">
+        <tr>
+            <th>@Html.DisplayNameFor(c => c.CodCompra)</th>
+            <th>@Html.DisplayNameFor(c => c.Fecha)</th>
+            <th>@Html.DisplayNameFor(c => c.Total)</th>
+            <th>@Html.DisplayNameFor(c => c.Sucursal)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody  class=" text-center">
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.CodCompra)</td>
+            <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
+            @* <td>@Html.DisplayFor(modelItem => item.Carrito.SubTotal)</td> *@
+            <td>@Html.DisplayFor(modelItem => item.Total)</td>
+            <td>@Html.DisplayFor(modelItem => item.Sucursal.Nombre)</td>
+            <td>
+                <a class="btn btn-info btn-sm text-white mb-2" asp-action="DetalleCompraCliente" asp-route-id="@item.Carrito.Id">@AliasGUI.Details</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

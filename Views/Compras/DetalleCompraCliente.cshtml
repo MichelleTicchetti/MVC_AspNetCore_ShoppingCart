@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Carrito_A.Models.CarritoItem>
+
+
+<table class="table table-striped">
+    <thead class="thead-dark  text-center">
+        <tr>
+            <th scope="col">@Html.DisplayNameFor(c => c.Producto.Nombre)</th>
+            <th scope="col">@Html.DisplayNameFor(c => c.ValorUnitario)</th>
+            <th scope="col">@Html.DisplayNameFor(c => c.Cantidad)</th>
+            <th scope="col">@Html.DisplayNameFor(c => c.SubTotal)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td class="text-center">@Html.DisplayFor(modelItem => item.Producto.Nombre)</td>
+            <td class="text-center">@Html.DisplayFor(modelItem => item.ValorUnitario)</td>
+            <td class="text-center">@Html.DisplayFor(modelItem => item.Cantidad)</td>
+            <td class="text-center">@Html.DisplayFor(modelItem => item.SubTotal)</td>
+        </tr>
+        }
+    </tbody>
+</table>

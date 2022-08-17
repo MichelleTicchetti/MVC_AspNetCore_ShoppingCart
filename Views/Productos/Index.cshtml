@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Carrito_A.Models.Producto>
+@inject Microsoft.AspNetCore.Identity.UserManager<Carrito_A.Models.Persona> userManager
+@inject SignInManager<Persona> singInManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Productos</h1>
+
+@if (singInManager.IsSignedIn(User) && (User.IsInRole("Empleado") || User.IsInRole("Administrador")))
+{
+    <p>
+        <a asp-action="Create">@AliasGUI.Create</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioVigente)
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioVigente)
+            </td>
+            <td>
+                @{
+                    var foto = "~/img/fotos/productos/" + item.Foto;
+                    var defaultFoto = "~/img/fotos/productos/productodefault.jpg";
+
+                    if (foto != defaultFoto) {
+
+                        <img src="@foto" class="img-fluid img-thumbnail" alt="Foto del producto." width="150px" height="100px" asp-append-version="true">
+                } else{
+
+            <img src="@defaultFoto" class="img-fluid img-thumbnail" alt="Foto del producto." width="150px" height="100px" asp-append-version="true">
+                
+                }
+                
+                    }
+
+            </td>
+            <td>
+                @if (item.Activo == false)
+                {
+                    <p class="alert-danger text-center ">PRODUCTO PAUSADO</p>
+                }
+                else
+                {
+                    if (!User.IsInRole("Empleado") && !User.IsInRole("Administrador"))
+                    {
+                        <a class="btn btn-success btn-sm text-white mb-2" asp-action="CarritoMgr" asp-controller="Carritos" asp-route-productoId="@item.Id"> Agregar a mi Carrito</a>
+                    }
+                }
+            </td>
+            <td>
+                @if (singInManager.IsSignedIn(User) && (User.IsInRole("Empleado") || User.IsInRole("Administrador")))
+                {
+                    <a class="btn btn-secondary btn-sm text-white mb-2" asp-action="Edit" asp-route-id="@item.Id">@AliasGUI.Edit</a>
+                }
+            </td>
+            <td>
+                @if (singInManager.IsSignedIn(User) && (User.IsInRole("Empleado") || User.IsInRole("Administrador")))
+                {
+                    @if (item.Activo)
+                    {
+                        <a class="btn btn-danger btn-sm text-white mb-2 justify-content-between" asp-action="DeshabilitarProducto" asp-route-id="@item.Id">Deshabilitar</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-success btn-sm text-white mb-2 justify-content-between" asp-action="HabilitarProducto" asp-route-id="@item.Id">Habilitar</a>
+                    }
+                }
+            </td>
+            <td>
+                <a class="btn btn-info btn-sm text-white mb-2" asp-action="Details" asp-route-id="@item.Id">@AliasGUI.Details</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

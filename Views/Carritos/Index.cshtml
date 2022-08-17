@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Carrito_A.Models.Carrito>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h1>Carritos</h1>
+
+@if (Model != null && Model.Count() > 0)
+{
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Activo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Activo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.NombreCompleto)
+                </td>
+                <td>
+                    <a class="btn btn-secondary btn-sm text-white mb-2" asp-action="Edit" asp-route-id="@item.Id">@AliasGUI.Edit</a>
+                    <a class="btn btn-info btn-sm text-white mb-2" asp-action="Details" asp-route-id="@item.Id">@AliasGUI.Details</a>
+                    <!--<a class="btn btn-danger btn-sm text-white mb-2" asp-action="Edit" asp-route-id="@item.Id">@AliasGUI.Delete</a>  -->
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+else { 
+<p>No hay ningún carrito</p>
+}

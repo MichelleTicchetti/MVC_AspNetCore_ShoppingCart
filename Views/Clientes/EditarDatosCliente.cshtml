@@ -1,0 +1,67 @@
+﻿@model EditarDatosCliente
+@inject SignInManager<Persona> singInManager
+@inject Microsoft.AspNetCore.Identity.UserManager<Carrito_A.Models.Persona> userManager
+
+@{
+    ViewData["Title"] = "Editar Datos";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditarDatosCliente">
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Apellido" class="control-label"></label>
+                <input asp-for="Apellido" class="form-control" />
+                <span asp-validation-for="Apellido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Localidad" class="control-label"></label>
+                <input asp-for="Localidad" class="form-control" />
+                <span asp-validation-for="Localidad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Calle" class="control-label"></label>
+                <input asp-for="Calle" class="form-control" />
+                <span asp-validation-for="Calle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Numero" class="control-label"></label>
+                <input asp-for="Numero" class="form-control" />
+                <span asp-validation-for="Numero" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Piso" class="control-label"></label>
+                <input asp-for="Piso" class="form-control" />
+                <span asp-validation-for="Piso" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Departamento" class="control-label"></label>
+                <input asp-for="Departamento" class="form-control" />
+                <span asp-validation-for="Departamento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodigoPostal" class="control-label"></label>
+                <input asp-for="CodigoPostal" class="form-control" />
+                <span asp-validation-for="CodigoPostal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodigoDeArea" class="control-label"></label>
+                <input asp-for="CodigoDeArea" class="form-control" />
+                <span asp-validation-for="CodigoDeArea" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumeroTelefono" class="control-label"></label>
+                <input asp-for="NumeroTelefono" class="form-control" />
+                <span asp-validation-for="NumeroTelefono" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Editar" class="btn btn-primary" asp-action="EditarDatosCliente" asp-controller="Clientes" asp-route-clienteId="@ViewBag.Cliente.Id" />
+            </div>
+        </form>
+    </div>
+</div>

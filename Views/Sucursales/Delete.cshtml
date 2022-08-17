@@ -1,0 +1,33 @@
+﻿@model Carrito_A.Models.Sucursal
+
+@{
+    ViewData["Title"] = @AliasGUI.Delete;
+}
+
+<h1>Eliminar Sucursal</h1>
+
+<h3>@AliasGUI.SureToDelete</h3>
+<div>
+    <h4>Sucursal</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger btn-sm text-white mb-2" />
+        <a class="btn btn-info btn-sm text-white mb-2" asp-action="Index">@AliasGUI.BackToList</a>
+    </form>
+</div>

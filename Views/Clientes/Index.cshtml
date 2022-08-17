@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Carrito_A.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Clientes</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Dni)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dni)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
+                @{
+                    var foto = "~/img/fotos/clientes/" + item.Foto;
+                    var defaultFoto = "~/img/fotos/clientes/personadefault.png";
+
+                    if (foto != "~/img/fotos/clientes/personadefault.png")
+                    {
+
+                                <img src="@foto" class="img-fluid img-thumbnail" alt="Foto del cliente." width="150px" height="100px" asp-append-version="true">
+                    }
+                    else
+                    {
+
+            <img src="@defaultFoto" class="img-fluid img-thumbnail" alt="Foto del cliente." width="150px" height="100px" asp-append-version="true">
+
+                    }
+                }
+                
+            </td>
+            <td>
+            </td>
+            <td>
+                @if (User.IsInRole("Empleado") || User.IsInRole("Administrador"))
+                {
+                    <a class="btn btn-secondary btn-sm text-white mb-2" asp-action="EditarDatosCliente" asp-route-clienteId="@item.Id">@AliasGUI.Edit</a>
+                    <a class="btn btn-info btn-sm text-white mb-2" asp-action="Details" asp-route-id="@item.Id">@AliasGUI.Details</a>
+                    <a class="btn btn-danger btn-sm text-white mb-2" asp-action="Delete" asp-route-id="@item.Id">@AliasGUI.Delete</a>
+                }
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Carrito_A.Models.Telefono>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">@AliasGUI.Create</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoDeArea)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Persona)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoDeArea)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Persona)
+            </td>
+            <td>
+                <a class="btn btn-secondary btn-sm text-white mb-2" asp-action="Edit" asp-route-id="@item.Id">@AliasGUI.Edit</a> 
+                <a class="btn btn-info btn-sm text-white mb-2" asp-action="Details" asp-route-id="@item.Id">@AliasGUI.Details</a> 
+                <a class="btn btn-danger btn-sm text-white mb-2" asp-action="Delete" asp-route-id="@item.Id">@AliasGUI.Delete</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
